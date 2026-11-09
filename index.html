@@ -1,1 +1,962 @@
 
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Amazonas 2026–2030 | 5 ejes estratégicos</title>
+<meta name="description" content="Inventario interactivo de desarrollo regional de Amazonas: conectividad, salud, agua, economía y gobernabilidad.">
+<style>
+:root {
+  --navy:#102638;
+  --teal:#087e79;
+  --mint:#e1f5f0;
+  --bg:#f4f7fa;
+  --ink:#172c3d;
+  --muted:#66798a;
+  --line:#dce6ec;
+}
+* {box-sizing:border-box}
+html {scroll-behavior:smooth}
+body {
+  margin:0;
+  background:var(--bg);
+  color:var(--ink);
+  font:14px/1.55 system-ui,-apple-system,"Segoe UI",Arial,sans-serif;
+}
+button,input,select {font:inherit}
+button {cursor:pointer}
+a {color:var(--teal)}
+.layout {
+  display:grid;
+  grid-template-columns:255px minmax(0,1fr);
+  min-height:100vh;
+}
+aside {
+  background:var(--navy);
+  color:#d0e1e7;
+  padding:28px 18px;
+  position:sticky;
+  top:0;
+  height:100vh;
+  overflow:auto;
+}
+.logo {
+  font-weight:900;
+  letter-spacing:.16em;
+  font-size:21px;
+  color:#fff;
+}
+.sublogo {
+  font-size:10px;
+  letter-spacing:.15em;
+  color:#92b7c2;
+  margin-bottom:39px;
+}
+.hint {
+  font-size:10px;
+  text-transform:uppercase;
+  letter-spacing:.15em;
+  color:#90aab6;
+  margin:20px 10px 9px;
+}
+.nav {
+  width:100%;
+  text-align:left;
+  color:#cadddf;
+  background:transparent;
+  border:1px solid transparent;
+  border-radius:11px;
+  margin:3px 0;
+  padding:13px 12px;
+  font-weight:650;
+}
+.nav:hover,.nav.active {
+  background:#245168;
+  color:#fff;
+}
+.nav.active {border-color:#468078}
+.nav span {
+  display:inline-flex;
+  width:24px;
+  height:24px;
+  align-items:center;
+  justify-content:center;
+  border:1px solid #759ba9;
+  border-radius:7px;
+  margin-right:10px;
+  font-size:11px;
+}
+.sidefoot {
+  margin-top:28px;
+  border-top:1px solid #486273;
+  padding-top:19px;
+  color:#a6bdc5;
+  font-size:11px;
+}
+.top {
+  background:#fff;
+  border-bottom:1px solid var(--line);
+  padding:17px clamp(16px,4vw,45px);
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:14px;
+  flex-wrap:wrap;
+}
+.top strong {font-size:13px}
+.actions {display:flex;gap:8px;flex-wrap:wrap}
+.btn {
+  border:1px solid #cddce4;
+  background:#fff;
+  color:var(--ink);
+  border-radius:9px;
+  padding:9px 12px;
+  font-weight:700;
+  font-size:12px;
+}
+.btn:hover {border-color:var(--teal)}
+.btn.dark {
+  background:var(--navy);
+  border-color:var(--navy);
+  color:#fff;
+}
+.wrap {
+  max-width:1430px;
+  margin:auto;
+  padding:24px clamp(16px,4vw,45px) 70px;
+}
+.hero {
+  background:linear-gradient(120deg,#112b40,#165465 70%,#07847e);
+  padding:36px;
+  border-radius:22px;
+  color:white;
+}
+.eyebrow {
+  font-size:10px;
+  font-weight:850;
+  letter-spacing:.18em;
+  text-transform:uppercase;
+  color:#88dcd4;
+}
+.hero h1 {
+  font-size:clamp(29px,4vw,47px);
+  line-height:1.12;
+  letter-spacing:-.04em;
+  margin:12px 0;
+}
+.hero p {
+  max-width:750px;
+  color:#d6e9ec;
+  margin:0 0 17px;
+}
+.chip {
+  display:inline-block;
+  border:1px solid #ffffff77;
+  border-radius:22px;
+  padding:5px 10px;
+  font-size:11px;
+  color:white;
+}
+.kpis {
+  display:grid;
+  grid-template-columns:repeat(4,minmax(0,1fr));
+  gap:13px;
+  margin:17px 0;
+}
+.kpi,.panel,.item {
+  background:#fff;
+  border:1px solid var(--line);
+  border-radius:16px;
+  padding:19px;
+  box-shadow:0 8px 25px #183a5010;
+}
+.kpi .name {color:var(--muted);font-size:11px}
+.kpi .value {
+  font-weight:850;
+  font-size:clamp(19px,2.5vw,30px);
+  letter-spacing:-.03em;
+}
+.kpi .note {font-size:10px;color:#8797a4}
+.cols {
+  display:grid;
+  grid-template-columns:1.15fr .85fr;
+  gap:15px;
+}
+.panel h2 {font-size:17px;margin:0 0 15px}
+.bar {margin:14px 0}
+.barhead {
+  display:flex;
+  justify-content:space-between;
+  gap:8px;
+  font-size:12px;
+  font-weight:650;
+}
+.track {
+  background:#e7f2f0;
+  border-radius:15px;
+  height:11px;
+  overflow:hidden;
+  margin-top:7px;
+}
+.fill {
+  height:100%;
+  background:linear-gradient(90deg,#087e79,#54bcb0);
+  width:0;
+  transition:width .4s;
+}
+.notice {
+  padding:13px;
+  border-radius:11px;
+  background:#eef7f5;
+  color:#365c5a;
+  font-size:12px;
+  margin-top:15px;
+}
+h2.section {font-size:22px;margin:29px 0 13px}
+.filters {
+  display:grid;
+  grid-template-columns:minmax(210px,2fr) 1fr 1fr;
+  gap:10px;
+  margin-bottom:13px;
+}
+.filters label {
+  display:block;
+  font-size:10px;
+  font-weight:800;
+  letter-spacing:.06em;
+  text-transform:uppercase;
+  color:var(--muted);
+  margin-bottom:5px;
+}
+.filters input,.filters select {
+  width:100%;
+  height:43px;
+  border-radius:9px;
+  border:1px solid #d2e0e8;
+  background:#fff;
+  padding:10px;
+  color:var(--ink);
+}
+.result {
+  font-size:12px;
+  color:var(--muted);
+  margin-bottom:11px;
+}
+.items {
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:13px;
+}
+.item {display:flex;flex-direction:column;gap:9px}
+.labels {
+  display:flex;
+  align-items:start;
+  justify-content:space-between;
+  gap:8px;
+}
+.tag {
+  font-size:10px;
+  font-weight:750;
+  border-radius:20px;
+  padding:5px 9px;
+  background:var(--mint);
+  color:#126d66;
+}
+.place {font-size:10px;color:var(--muted)}
+.item h3 {font-size:16px;margin:1px 0}
+.item p {font-size:12px;color:#647687;margin:0}
+.foot {
+  display:flex;
+  justify-content:space-between;
+  gap:10px;
+  align-items:center;
+  margin-top:auto;
+  padding-top:10px;
+  border-top:1px solid #e9eff3;
+}
+.foot small {color:#788996}
+.foot button {
+  border:none;
+  background:none;
+  color:var(--teal);
+  font-weight:800;
+  font-size:12px;
+}
+.foot button:hover {text-decoration:underline}
+.empty {
+  padding:28px;
+  background:#fff;
+  border:1px dashed #bbcbd4;
+  border-radius:13px;
+  grid-column:1/-1;
+}
+.finalnote {
+  margin-top:24px;
+  border-left:3px solid #dfb466;
+  background:#fff;
+  padding:15px;
+  border-radius:5px;
+  font-size:12px;
+  color:#617484;
+}
+dialog {
+  width:min(690px,calc(100vw - 24px));
+  border:0;
+  border-radius:18px;
+  padding:0;
+  box-shadow:0 25px 100px #001d2b66;
+}
+dialog::backdrop {background:#081d2bb8}
+.modalhead {
+  background:var(--navy);
+  color:white;
+  padding:23px;
+}
+.modalhead h2 {margin:8px 0 3px;font-size:23px}
+.modalbody {padding:24px}
+.modalbody dt {font-weight:800;margin-top:14px}
+.modalbody dd {
+  margin:3px 0 10px;
+  color:#556b79;
+  overflow-wrap:anywhere;
+}
+.modalend {text-align:right;margin-top:21px}
+.slide {
+  display:none;
+  position:fixed;
+  inset:0;
+  background:linear-gradient(125deg,#102638,#165767);
+  color:#fff;
+  z-index:20;
+  padding:clamp(20px,5vw,60px);
+  flex-direction:column;
+  justify-content:space-between;
+}
+.slide.open {display:flex}
+.slidebar,.slidebuttons {
+  display:flex;
+  justify-content:space-between;
+  gap:10px;
+  align-items:center;
+}
+.slide h2 {
+  font-size:clamp(39px,6vw,80px);
+  line-height:1.08;
+  margin:15px 0;
+}
+.slide p {
+  font-size:clamp(15px,2vw,22px);
+  color:#d8e9ea;
+  max-width:820px;
+}
+.slidebox {
+  border:1px solid #ffffff45;
+  border-radius:17px;
+  background:#ffffff12;
+  padding:20px;
+  margin-top:20px;
+}
+.slidebox li {margin:11px 0}
+.slidebuttons {justify-content:flex-end}
+.slide .btn {background:#fff}
+
+@media(max-width:980px) {
+  .layout {grid-template-columns:1fr}
+  aside {height:auto;position:static;padding:17px}
+  .sublogo {margin-bottom:9px}
+  .hint,.sidefoot {display:none}
+  #nav {display:flex;overflow:auto;gap:7px}
+  .nav {white-space:nowrap;width:auto;flex:none;margin:0}
+  .kpis {grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+@media(max-width:650px) {
+  .hero {padding:24px}
+  .cols,.items {grid-template-columns:1fr}
+  .filters {grid-template-columns:1fr}
+  .top {align-items:start}
+  .slide h2 {font-size:38px}
+}
+@media print {
+  aside,.top,.filters,.foot button,.slide {display:none!important}
+  .layout {display:block}
+  .wrap {padding:0}
+  .hero {background:#fff;color:#111;border:1px solid #ccc}
+  .hero p,.eyebrow {color:#333}
+  .item,.panel,.kpi {break-inside:avoid;box-shadow:none}
+  .items {grid-template-columns:1fr 1fr}
+}
+</style>
+</head>
+<body>
+
+<div class="layout">
+  <aside>
+    <div class="logo">AMAZONAS</div>
+    <div class="sublogo">DESARROLLO REGIONAL · 2026–2030</div>
+    <div class="hint">Explorar</div>
+    <nav id="nav"></nav>
+    <div class="sidefoot">
+      Inventario documental. Los anuncios, estudios y aprobaciones
+      no equivalen a obras terminadas.
+    </div>
+  </aside>
+
+  <div>
+    <header class="top">
+      <strong>Visor estratégico · Cinco ejes</strong>
+      <div class="actions">
+        <button class="btn dark" id="presentar">▣ Presentar</button>
+        <button class="btn" id="csv">↓ Exportar CSV</button>
+        <button class="btn" onclick="print()">⎙ Imprimir</button>
+      </div>
+    </header>
+
+    <main class="wrap">
+      <section class="hero">
+        <div class="eyebrow" id="subtitulo">Inventario estratégico</div>
+        <h1 id="titulo">Amazonas: cinco ejes de desarrollo</h1>
+        <p id="descripcion">
+          Información territorial y proyectos documentados de infraestructura,
+          salud, agua, economía y gobernabilidad.
+        </p>
+        <span class="chip">
+          Corte documental: noviembre de 2026 · No es información en tiempo real
+        </span>
+      </section>
+
+      <div class="kpis" id="kpis"></div>
+
+      <div class="cols">
+        <section class="panel">
+          <h2 id="chartTitle">Vista de los cinco ejes</h2>
+          <div id="chart"></div>
+        </section>
+        <section class="panel">
+          <h2>Lectura institucional</h2>
+          <div id="analysis"></div>
+        </section>
+      </div>
+
+      <h2 class="section">Inventario de proyectos e instrumentos</h2>
+
+      <div class="filters">
+        <div>
+          <label for="buscar">Buscar</label>
+          <input id="buscar" placeholder="Proyecto, ciudad, provincia..." type="search">
+        </div>
+        <div>
+          <label for="provincia">Provincia</label>
+          <select id="provincia"></select>
+        </div>
+        <div>
+          <label for="etapa">Etapa documentada</label>
+          <select id="etapa"></select>
+        </div>
+      </div>
+
+      <div class="result" id="contador"></div>
+      <div class="items" id="items"></div>
+
+      <div class="finalnote">
+        <b>Nota metodológica:</b> 26 fichas documentales de fuentes públicas.
+        Cada estado corresponde al momento del reporte indicado; los proyectos
+        pueden haber cambiado posteriormente. Verificar CUI, PIM, devengado
+        y avances físicos antes de presentar información como actual.
+      </div>
+    </main>
+  </div>
+</div>
+
+<dialog id="modal">
+  <div class="modalhead">
+    <div class="eyebrow">Ficha del inventario</div>
+    <h2 id="modalTitle"></h2>
+    <div id="modalPlace"></div>
+  </div>
+  <div class="modalbody">
+    <dl id="modalData"></dl>
+    <div class="modalend">
+      <button class="btn dark" id="cerrar">Cerrar</button>
+    </div>
+  </div>
+</dialog>
+
+<div class="slide" id="slide">
+  <div class="slidebar">
+    <b>AMAZONAS · CINCO EJES</b>
+    <button class="btn" id="salir">✕ Salir</button>
+  </div>
+  <div>
+    <div class="eyebrow" id="slideCount"></div>
+    <h2 id="slideTitle"></h2>
+    <p id="slideDesc"></p>
+    <div class="slidebox" id="slideContent"></div>
+  </div>
+  <div class="slidebuttons">
+    <button class="btn" id="anterior">← Anterior</button>
+    <button class="btn" id="siguiente">Siguiente →</button>
+  </div>
+</div>
+
+<script>
+// Registro:
+// [eje, provincia, nombre, etapa, evidencia, dato relevante, fuente]
+
+const datos = [
+[1,'Multirregional','Eje Vial I','Perfil, abril 2026',
+'Corredor interregional; perfil técnico en elaboración.',
+'≈300 km de corredor',
+'https://www.gob.pe/institucion/mtc/noticias/1380704-mtc-impulsa-proyectos-estrategicos-para-fortalecer-la-conectividad-en-amazonas'],
+
+[1,'Utcubamba','Corral Quemado – Puente Utcubamba',
+'Mantenimiento anunciado, mayo 2026',
+'Coordinaciones para mantenimiento rutinario.',
+'Kilómetros ejecutados sin verificar',
+'https://www.gob.pe/institucion/mtc/noticias/1396288-mtc-acelera-proyectos-viales-estrategicos-en-la-region-amazonas'],
+
+[1,'Interregional','Eje Vial IV: Puente Durán – Saramiriza',
+'Gestión de financiamiento, mayo 2026',
+'Gestiones para segunda etapa y procura internacional.',
+'Ejecución física no verificada',
+'https://www.gob.pe/institucion/mtc/noticias/1396288-mtc-acelera-proyectos-viales-estrategicos-en-la-region-amazonas'],
+
+[1,'Chachapoyas / Rodríguez de Mendoza',
+'Corredor Cajamarca – Balsas – Chachapoyas – Rodríguez de Mendoza',
+'Mantenimiento reportado, enero 2026',
+'Reporte de bacheo y limpieza de cunetas.',
+'Longitud intervenida no verificada',
+'https://www.gob.pe/institucion/mtc/noticias/1332931-mtc-refuerza-mantenimiento-del-corredor-vial-que-une-cajamarca-y-amazonas'],
+
+[1,'Chachapoyas','Puente Chacanto – Leymebamba',
+'Estudio, enero 2026',
+'Preinversión a nivel de perfil.',
+'≈88 km',
+'https://www.gob.pe/institucion/mtc/noticias/1332931-mtc-refuerza-mantenimiento-del-corredor-vial-que-une-cajamarca-y-amazonas'],
+
+[1,'Chachapoyas','Acceso a Pedro Castro Alva',
+'Inicio reportado, mayo 2026',
+'Mejoramiento de vía de acceso urbano anunciado.',
+'27 calles',
+'https://www.gob.pe/institucion/regionamazonas/noticias/1399945-se-inicio-el-mejoramiento-de-la-via-de-acceso-a-pedro-castro-alva-en-chachapoyas'],
+
+[1,'Bongará / Chachapoyas / Luya',
+'Carreteras AM-106, AM-110 y AM-111',
+'Fiscalización, enero 2025',
+'Comisión de investigación de obras conformada por el Consejo Regional.',
+'3 vías identificadas',
+'https://www.gob.pe/institucion/regionamazonas/normas-legales/6372395-003-2025-gr-amazonas-cr-so'],
+
+[2,'Utcubamba','Nuevo Hospital Santiago Apóstol',
+'Inicio reportado, marzo 2026',
+'Construcción del hospital II-1 anunciada por el GORE.',
+'Más de 107 000 beneficiarios proyectados',
+'https://www.gob.pe/institucion/regionamazonas/noticias/1365586-construccion-del-hospital-santiago-apostol-en-utcubamba'],
+
+[2,'Bagua','Hospital Gustavo Lanatta Luján',
+'En funcionamiento institucional',
+'Hospital de apoyo de la provincia.',
+'Categoría II-1',
+'https://www.gob.pe/institucion/hbagua/institucional'],
+
+[2,'Chachapoyas','Hospital Virgen de Fátima',
+'En funcionamiento institucional',
+'Hospital de referencia regional con cartera de servicios 2026.',
+'Cartera de servicios aprobada',
+'https://www.gob.pe/institucion/regionamazonas-diresa/normas-legales/8452725-771-2026-gobierno-regional-amazonas-drsa'],
+
+[2,'Condorcanqui','Hospital Santa María de Nieva y microredes',
+'Red asistencial identificada',
+'Hospital y microredes de la red de salud Condorcanqui.',
+'Hospital II-1; 6 microredes mencionadas',
+'https://www.gob.pe/institucion/regionamazonas-riscondorcanqui/organizacion'],
+
+[2,'Rodríguez de Mendoza','Hospital María Auxiliadora',
+'Construcción, febrero 2026',
+'Avance publicado por el Gobierno Regional en febrero.',
+'83.04% reportado; 26 camas proyectadas',
+'https://www.gob.pe/institucion/regionamazonas/noticias/1350414-hospital-maria-auxiliadora-cada-vez-mas-cerca-de-ser-una-realidad'],
+
+[3,'Amazonas','Acceso y calidad del agua',
+'Línea base 2025',
+'Diferenciar acceso por red pública de calidad sanitaria.',
+'91.3% red pública; 12.4% cloro residual adecuado',
+'https://observatorio.ceplan.gob.pe/ficha/t1_ama'],
+
+[3,'Utcubamba / Cajaruro',
+'Agua y saneamiento para seis localidades de Cajaruro',
+'Formulación, 2026',
+'Santa Isabel, Misquiyacu Alto, La Viña, Nuevo Porvenir, San Miguel y San Isidro.',
+'6 localidades; código de idea 448691',
+'https://www.gob.pe/institucion/regionamazonas/normas-legales/7755376-008-2026-gr-amazonas-gr'],
+
+[3,'Bagua','Agua y alcantarillado de Bagua',
+'Evaluación y gestión, junio 2026',
+'Gestiones técnicas entre MVCS y Gobierno Regional.',
+'Más de 22 000 beneficiarios previstos',
+'https://www.gob.pe/institucion/regionamazonas/noticias/1412880-reunion-con-el-ministerio-de-vivienda-sobre-el-proyecto-de-agua-y-saneamiento-de-bagua'],
+
+[3,'Condorcanqui / Río Santiago',
+'Agua y saneamiento en Chapiza y Ayambis',
+'Inicio reportado, mayo 2026',
+'Proyecto para comunidades nativas.',
+'2 comunidades',
+'https://www.gob.pe/institucion/regionamazonas/noticias/1397405-se-inicio-el-proyecto-de-agua-potable-y-saneamiento-en-comunidades-nativas-de-condorcanqui'],
+
+[4,'Amazonas','Agenda Regional Agraria 2025–2030',
+'Presentación institucional',
+'Cadenas productivas priorizadas por la Dirección Regional Agraria.',
+'Café, cacao, ganadería, plátano, forestales y animales menores',
+'https://www.gob.pe/institucion/regionamazonas-dra/noticias/1246503-agenda-regional-agraria-2025-2030-y-pooar-2026-2028-fueron-presentados-en-la-ultima-sesion-del-cgraa'],
+
+[4,'Utcubamba / Luya / Bagua / Condorcanqui',
+'Cadenas para el desarrollo alternativo',
+'Asistencia técnica, abril 2026',
+'Devida reporta asociatividad y cadenas lícitas en varias provincias.',
+'Café, cacao, acuicultura, apicultura y plátano',
+'https://www.gob.pe/institucion/devida/noticias/1380618-amazonas-devida-fortalece-a-especialistas-en-asociatividad-para-ampliar-oportunidades-licitas'],
+
+[4,'Bagua / Rodríguez de Mendoza / Bongará / Chachapoyas',
+'Proyectos de café',
+'Actividades reportadas, febrero 2026',
+'Reinicio de actividades de proyectos agrarios.',
+'Dos agrupaciones territoriales',
+'https://www.gob.pe/institucion/regionamazonas-dra/noticias/1352079-proyectos-de-cafe-de-la-direccion-regional-agraria-amazonas-reinician-sus-actividades'],
+
+[4,'7 provincias','Proyecto Ganadero Regional',
+'Actividades reportadas, abril 2026',
+'Asistencia técnica y acompañamiento a productores.',
+'Más de 3 620 familias y 120 organizaciones, según fuente',
+'https://www.gob.pe/institucion/regionamazonas-dra/noticias/1378025-actividades-del-proyecto-ganadero-regional-se-realizan-en-forma-intensiva-en-todas-las-provincias-de-amazonas'],
+
+[4,'Luya / Bongará','Kuélap y Gocta',
+'Atractivos identificados',
+'Recursos turísticos emblemáticos de Amazonas.',
+'2 atractivos; visitas anuales por verificar',
+'https://consultasenlinea.mincetur.gob.pe/fichaInventario/index.aspx?cod_Ficha=754'],
+
+[5,'Amazonas','Presupuesto Institucional de Apertura 2026',
+'Aprobado, diciembre 2025',
+'Presupuesto inicial del Gobierno Regional. No equivale a gasto ejecutado.',
+'S/ 1 582.8 millones; S/ 424.3 millones de capital',
+'https://www.gob.pe/institucion/regionamazonas/normas-legales/7584709-219-2025-gr-amazonas-cr-so'],
+
+[5,'Amazonas','Programación Multianual de Inversiones 2027–2029',
+'Aprobada, febrero 2026',
+'Programación con diagnóstico de brechas y cartera de inversiones.',
+'CUI y montos por extraer',
+'https://www.gob.pe/institucion/regionamazonas/normas-legales/7795193-046-2026-gr-amazonas-gr'],
+
+[5,'Amazonas','Plan de Desarrollo Regional Concertado 2026–2040',
+'Aprobado, junio 2026',
+'Marco de planificación regional de largo plazo.',
+'Horizonte al 2040',
+'https://www.gob.pe/institucion/regionamazonas/normas-legales/8293187-007-2026-gr-amazonas-cr'],
+
+[5,'Amazonas',
+'Plataforma regional de seguimiento presupuestal y obras',
+'Oficializada, agosto 2024',
+'Instrumento institucional para seguimiento financiero y de obras.',
+'Actualización de la plataforma por comprobar',
+'https://www.gob.pe/institucion/regionamazonas/normas-legales/5884753-251-2024-gra-ggr'],
+
+[5,'Amazonas','Consulta Amigable MEF',
+'Portal permanente',
+'Consulta de PIA, PIM y devengados para seguimiento de inversión pública.',
+'Indicadores actualizables desde portal',
+'https://mef.gob.pe/es/?Itemid=100944']
+];
+
+const ejes = [
+{
+ n:'Panorama general',
+ d:'Cinco ejes estratégicos y 26 referencias documentales de Amazonas.',
+ k:['5 ejes','7 provincias','26 fichas','2026–2030'],
+ a:'Los proyectos registrados son una base de consulta, no una certificación del avance actual.',
+ p:['Conectividad y accesos','Infraestructura de salud','Agua y saneamiento',
+    'Economía productiva','Presupuesto y gestión']
+},
+{
+ n:'Integración territorial',
+ d:'Carreteras, corredores viales, accesos y transitabilidad.',
+ k:['7 fichas','≈300 km','≈88 km','27 calles'],
+ a:'Las longitudes son referencias de corredores o estudios; no kilómetros ejecutados.',
+ p:['Medir transitabilidad y tiempos de viaje',
+    'Identificar CUI y costo actualizado',
+    'Verificar avance físico de cada tramo']
+},
+{
+ n:'Salud y atención hospitalaria',
+ d:'Hospitales, capacidad asistencial y proyectos de infraestructura.',
+ k:['5 fichas','>107 mil','83.04%','26 camas'],
+ a:'El 83.04% corresponde a un avance informado en febrero de 2026; no es avance actualizado.',
+ p:['Comprobar camas realmente operativas',
+    'Inventariar personal y equipamiento',
+    'Medir tiempos de acceso y referencia']
+},
+{
+ n:'Agua y saneamiento',
+ d:'Cobertura, calidad sanitaria y proyectos de servicios básicos.',
+ k:['4 fichas','91.3%','12.4%','6 localidades'],
+ a:'Red pública y cloro residual adecuado son indicadores diferentes y no deben confundirse.',
+ p:['Medir horas de continuidad',
+    'Comprobar calidad del agua',
+    'Identificar brechas por localidad']
+},
+{
+ n:'Economía regional',
+ d:'Agricultura, cadenas productivas, ganadería y turismo.',
+ k:['5 fichas','6 cadenas','>3 620','>120'],
+ a:'Los hogares y organizaciones corresponden a alcance declarado de un proyecto, no a resultados auditados.',
+ p:['Medir rendimiento y ventas',
+    'Evaluar empleo y productividad',
+    'Promover seguimiento del turismo']
+},
+{
+ n:'Gobernabilidad y presupuesto',
+ d:'Planificación, presupuesto público y control de ejecución.',
+ k:['5 fichas','S/ 1 582.8 M','S/ 424.3 M','26.8%'],
+ a:'El PIA es el presupuesto inicial aprobado; no debe confundirse con PIM ni devengado.',
+ p:['Revisar PIM y ejecución mensual',
+    'Contrastar avance físico y financiero',
+    'Registrar obras paralizadas y plazos']
+}
+];
+
+const provincias = [
+ 'Bagua','Bongará','Chachapoyas','Condorcanqui',
+ 'Luya','Rodríguez de Mendoza','Utcubamba'
+];
+
+const $ = id => document.getElementById(id);
+const esc = s => String(s??'').replace(/[&<>"']/g,c=>({
+  '&':'&amp;','<':'&lt;','>':'&gt;',
+  '"':'&quot;',"'":'&#39;'
+}[c]));
+const norm = s => String(s).normalize('NFD')
+  .replace(/[\u0300-\u036f]/g,'').toLowerCase();
+
+let eje=0, filtrados=[], diap=0;
+
+function opciones() {
+ $('provincia').innerHTML =
+  '<option value="">Todas las provincias</option>' +
+  provincias.map(x=>`<option>${esc(x)}</option>`).join('');
+
+ $('etapa').innerHTML =
+  '<option value="">Todas las etapas</option>' +
+  [...new Set(datos.map(r=>r[3]))].sort()
+    .map(x=>`<option>${esc(x)}</option>`).join('');
+}
+
+function pintarNav() {
+ $('nav').innerHTML = ejes.map((x,i)=>
+  `<button class="nav ${i===eje?'active':''}" data-eje="${i}">
+     <span>${i||'★'}</span>${esc(x.n)}
+   </button>`
+ ).join('');
+
+ document.querySelectorAll('[data-eje]').forEach(b=>{
+   b.onclick=()=>{
+     eje=+b.dataset.eje;
+     limpiar();
+     pintar();
+     scrollTo({top:0,behavior:'smooth'});
+   };
+ });
+}
+
+function limpiar() {
+ $('buscar').value='';
+ $('provincia').value='';
+ $('etapa').value='';
+}
+
+function barra(nombre,numero,total,etiqueta) {
+ return `<div class="bar">
+  <div class="barhead">
+   <span>${esc(nombre)}</span><b>${esc(etiqueta)}</b>
+  </div>
+  <div class="track">
+   <div class="fill" style="width:${total?100*numero/total:0}%"></div>
+  </div>
+ </div>`;
+}
+
+function pintar() {
+ let a=ejes[eje];
+ pintarNav();
+
+ $('titulo').textContent=a.n;
+ $('descripcion').textContent=a.d;
+ $('subtitulo').textContent=eje
+   ? 'Eje '+eje+' · Amazonas'
+   : 'Planificación y evidencia';
+
+ $('kpis').innerHTML=a.k.map((v,i)=>
+  `<div class="kpi">
+   <div class="name">${[
+    'Cobertura documental','Indicador 1','Indicador 2','Indicador 3'
+   ][i]}</div>
+   <div class="value">${esc(v)}</div>
+   <div class="note">Dato del inventario</div>
+  </div>`
+ ).join('');
+
+ $('chartTitle').textContent=eje
+   ? 'Registros documentales'
+   : 'Distribución de fichas por eje';
+
+ if(eje) {
+   let n=datos.filter(d=>d[0]===eje).length;
+   $('chart').innerHTML=
+    barra('Registros de este eje',n,26,n+' de 26') +
+    barra('Participación documental',n,26,
+      (100*n/26).toFixed(1)+'%');
+ } else {
+   $('chart').innerHTML=ejes.slice(1).map((x,i)=>{
+     let n=datos.filter(d=>d[0]===i+1).length;
+     return barra(x.n,n,7,n+' fichas');
+   }).join('');
+ }
+
+ $('analysis').innerHTML=
+  '<p>'+esc(a.a)+'</p><ul>'+
+  a.p.map(s=>'<li>'+esc(s)+'</li>').join('')+
+  '</ul><div class="notice">Los datos muestran referencias documentadas y no cifras de avance en tiempo real.</div>';
+
+ pintarItems();
+}
+
+function pintarItems() {
+ let q=norm($('buscar').value.trim());
+ let pr=$('provincia').value;
+ let st=$('etapa').value;
+
+ filtrados=datos.map((r,i)=>({r,i})).filter(({r})=>
+   (!eje||r[0]===eje) &&
+   (!pr||r[1]==='Amazonas'||r[1]==='7 provincias'||
+     r[1]==='Multirregional'||r[1]==='Interregional'||
+     norm(r[1]).includes(norm(pr))) &&
+   (!st||r[3]===st) &&
+   (!q||norm(r.slice(1,6).join(' ')).includes(q))
+ );
+
+ $('contador').textContent=filtrados.length+' fichas encontradas';
+
+ $('items').innerHTML=filtrados.length
+   ? filtrados.map(({r,i})=>
+     `<article class="item">
+       <div class="labels">
+        <span class="tag">Eje ${r[0]}</span>
+        <span class="place">${esc(r[1])}</span>
+       </div>
+       <h3>${esc(r[2])}</h3>
+       <p>${esc(r[4])}</p>
+       <div class="foot">
+        <small>${esc(r[3])}</small>
+        <button data-ficha="${i}">Ver ficha →</button>
+       </div>
+      </article>`
+    ).join('')
+   : '<div class="empty">No se encontraron proyectos con esos filtros.</div>';
+
+ document.querySelectorAll('[data-ficha]').forEach(b=>
+   b.onclick=()=>abrir(+b.dataset.ficha)
+ );
+}
+
+function abrir(i) {
+ let r=datos[i];
+ $('modalTitle').textContent=r[2];
+ $('modalPlace').textContent=r[1];
+
+ $('modalData').innerHTML=`
+  <dt>Eje</dt><dd>${esc(ejes[r[0]].n)}</dd>
+  <dt>Etapa reportada</dt><dd>${esc(r[3])}</dd>
+  <dt>Evidencia</dt><dd>${esc(r[4])}</dd>
+  <dt>Dato relevante</dt><dd>${esc(r[5])}</dd>
+  <dt>Fuente</dt>
+  <dd><a href="${esc(r[6])}" rel="noopener noreferrer"
+     target="_blank">Consultar fuente oficial ↗</a></dd>
+  <dt>Advertencia</dt>
+  <dd>La publicación fuente tiene una fecha determinada;
+      el estado actual debe verificarse.</dd>`;
+
+ $('modal').showModal();
+}
+
+$('cerrar').onclick=()=>$('modal').close();
+
+$('modal').onclick=e=>{
+ if(e.target===$('modal'))$('modal').close();
+};
+
+['buscar','provincia','etapa'].forEach(id=>{
+ $(id).addEventListener(id==='buscar'?'input':'change',pintarItems);
+});
+
+$('csv').onclick=()=>{
+ let rows=[
+  ['Eje','Provincia','Proyecto','Etapa','Descripción','Dato','Fuente'],
+  ...filtrados.map(({r})=>[ejes[r[0]].n,...r.slice(1)])
+ ];
+
+ let csv='\ufeff'+rows.map(r=>
+   r.map(s=>'"'+String(s).replace(/"/g,'""')+'"').join(';')
+ ).join('\r\n');
+
+ let url=URL.createObjectURL(
+   new Blob([csv],{type:'text/csv;charset=utf-8'})
+ );
+ let a=document.createElement('a');
+ a.href=url;
+ a.download='inventario_amazonas.csv';
+ a.click();
+ setTimeout(()=>URL.revokeObjectURL(url),1000);
+};
+
+function pintarSlide() {
+ let a=ejes[diap+1];
+ $('slideCount').textContent=`EJE ${diap+1} / 5`;
+ $('slideTitle').textContent=a.n;
+ $('slideDesc').textContent=a.d;
+
+ $('slideContent').innerHTML=`
+  <b>Indicadores documentados</b>
+  <p>${a.k.join(' · ')}</p>
+  <ul>${a.p.map(s=>'<li>'+esc(s)+'</li>').join('')}</ul>
+  <small style="color:#c8e8e4">${esc(a.a)}</small>`;
+
+ $('anterior').disabled=diap===0;
+ $('siguiente').textContent=diap===4?'Reiniciar ↺':'Siguiente →';
+}
+
+$('presentar').onclick=()=>{
+ diap=Math.max(0,eje-1);
+ $('slide').classList.add('open');
+ pintarSlide();
+};
+$('salir').onclick=()=>$('slide').classList.remove('open');
+$('anterior').onclick=()=>{
+ diap=Math.max(0,diap-1);
+ pintarSlide();
+};
+$('siguiente').onclick=()=>{
+ diap=(diap+1)%5;
+ pintarSlide();
+};
+
+document.addEventListener('keydown',e=>{
+ if(!$('slide').classList.contains('open'))return;
+ if(e.key==='Escape')$('salir').click();
+ if(e.key==='ArrowRight')$('siguiente').click();
+ if(e.key==='ArrowLeft')$('anterior').click();
+});
+
+opciones();
+pintar();
+</script>
+</body>
+</html>
+
